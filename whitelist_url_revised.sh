@@ -2,7 +2,6 @@
 
 : '
 Author Akshey Saluja
-Company SEEPEX Inc.
 '
 : '
 TODO:
