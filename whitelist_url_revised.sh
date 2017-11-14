@@ -2,7 +2,6 @@
 
 : '
 Author Akshey Saluja
-Company SEEPEX Inc.
 '
 
 dispalyOptions(){
@@ -51,7 +50,6 @@ case $1 in
     *)
     echo -e '\033[1m\nPlease follow Instructions!!!
 Enter a number that is provided\n\033[0m'
-echo -e '\033[1m\033[0m'
     dispalyOptions
     ;;
 esac
@@ -114,7 +112,7 @@ $2 == Whitelist/Blacklist
 #Check to see if input is not empty
 if [[ -z "$2" ]]; then
   echo -e '\033[1mPlease follow Instructions!!!
-Your input not invalid
+Your input is invalid
 Please try again\033[0m'
   dispalyOptions
   return
@@ -134,7 +132,7 @@ if [ "$2" == "3" ]; then
      addToWhitelist $1 3
 
 elif [ "$2" == "4" ]; then
-    addToBlacklist $1 3
+    addToBlacklist $1 4
 fi
 
 }
@@ -153,7 +151,7 @@ $2 == Whitelist/Blacklist
 # Check to see if IP Address is valid
 if   [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     if [ "$2"=="4" ]; then
-       addToWhitelist $1 4
+       addToWhitelist $1 3
 
     elif [ "$2" == "4" ]; then
       addToBlacklist $1 4
@@ -161,7 +159,7 @@ if   [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 
     else
       echo -e '\033[1mPlease follow Instructions!!!
-Your input not invalid
+Your input is invalid
 Please try again\033[0m'
         dispalyOptions
         return
@@ -179,11 +177,11 @@ $2 == option
 
   if [ "$2" == "3" ]; then
     # URL
-    echo $1 >> /etc/squid/squid-whitelist.acl
+    echo $1 >> $SQUIDWHITELIST
 
   elif [ "$2" == "4" ]; then
     #IP
-    echo $1 >> /etc/squid/ip_whitelist.acl
+    echo $1 >> $IPWHITELIST
 
   fi
 
@@ -199,11 +197,11 @@ $2 == option
 '
     if [ "$2" == "3" ]; then
       # URL
-      echo $1 >> /etc/squid/squid-manual-blacklist.acl
+      echo $1 >> $SQUIDBLACKLIST
 
     elif [ "$2" == "4" ]; then
       #IP
-      echo $1 >> /etc/squid/ip_blacklist.acl
+      echo $1 >> $IPBLACKLIST
     fi
 }
 
@@ -215,13 +213,13 @@ addToRegex(){
   #Check to see if input is not empty
   if [[ -z "$2" ]]; then
     echo -e '\033[1mPlease follow Instructions!!!
-Your input not invalid
+Your input is invalid
 Please try again\033[0m'
     dispalyOptions
     return
   fi
 
-echo $1 >> /etc/squid/whitelist-regex.acl
+echo $1 >> $SQUIDREGEX
 }
 
 readAccessLog(){
@@ -229,7 +227,7 @@ readAccessLog(){
 This will allow the user to tail -f  $1 /var/log/squid/access.log
 $1 == Keyword or IP
 '
-tail -f /var/log/squid/access.log | grep $1 & # run in background
+tail -f $ACCESSLOG | grep $1 & # run in background
 read -sn 1 #wait for user input
 kill %1 #kill the first background progress, i.e. tail
 
@@ -264,3 +262,11 @@ echo -e "Thank you for using Akshey Saluja's Squid Program"
 exit
 }
 main
+
+#global Variables
+SQUIDWHITELIST='/etc/squid/squid-whitelist.acl'
+IPWHITELIST='/etc/squid/ip_whitelist.acl'
+SQUIDBLACKLIST='/etc/squid/squid-manual-blacklist.acl'
+IPBLACKLIST='/etc/squid/ip_blacklist.acl'
+SQUIDREGEX='/etc/squid/whitelist-regex.acl'
+ACCESSLOG='/var/log/squid/access.log'
