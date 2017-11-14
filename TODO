@@ -1,4 +1,1 @@
 Make sure the each (IP) octet is 3 characters
-Check line 54
-Change 4 to 3 on line 156
-Change "Your input not invalid" to "Your input is invalid" Line 117, 164 & 218
