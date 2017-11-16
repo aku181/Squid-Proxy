@@ -4,7 +4,17 @@
 Author Akshey Saluja
 '
 
+#global Variables
+SQUIDWHITELIST='/root/testSquid/squid-whitelist.acl'
+IPWHITELIST='/root/testSquid/ip_whitelist.acl'
+SQUIDBLACKLIST='/root/testSquid/squid-manual-blacklist.acl'
+IPBLACKLIST='/root/testSquid/ip_blacklist.acl'
+SQUIDREGEX='/root/testSquid/whitelist-regex.acl'
+ACCESSLOG='/var/log/squid/access.log'
+
+
 dispalyOptions(){
+
 : '
 This will display all the options and the user will select the desired function.
 '
@@ -121,7 +131,7 @@ fi
 #Checking if URL begins with http:// or https:// https?://www. || www.
 if [[ ${1,,} =~ ^https?:// ]] || [[ ${1,,} =~ ^https?://www. ]] || [[ ${1,,} =~ ^www. ]];then
 
-  echo -e '\033[1mPlease follow Instructions!!!\033[0m
+  echo -e '\033[1mPlease follow Instructions!!!
 You do not need to enter http:// || https:// || www.\n\033[0m
 Please try again\033[0m'
   dispalyOptions
@@ -132,7 +142,7 @@ if [ "$2" == "3" ]; then
      addToWhitelist $1 3
 
 elif [ "$2" == "4" ]; then
-    addToBlacklist $1 4
+    addToBlacklist $1 3
 fi
 
 }
@@ -147,14 +157,13 @@ $2 == Whitelist/Blacklist
 5 == grep IP Address
 
 '
-
 # Check to see if IP Address is valid
 if   [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    if [ "$2"=="4" ]; then
-       addToWhitelist $1 3
+    if [ "$2" == "3" ]; then
+       addToWhitelist $1 4
 
     elif [ "$2" == "4" ]; then
-      addToBlacklist $1 4
+       addToBlacklist $1 4
     fi
 
     else
@@ -174,7 +183,6 @@ $2 == option
 3 == URL
 4 == IP Address
 '
-
   if [ "$2" == "3" ]; then
     # URL
     echo $1 >> $SQUIDWHITELIST
@@ -211,7 +219,7 @@ addToRegex(){
   $1 == Word
   '
   #Check to see if input is not empty
-  if [[ -z "$2" ]]; then
+  if [[ -z "$1" ]]; then
     echo -e '\033[1mPlease follow Instructions!!!
 Your input is invalid
 Please try again\033[0m'
@@ -257,16 +265,9 @@ if echo $answer | grep -iq "^n"; then
 fi
 
 done
-reconfigureSquid
+#reconfigureSquid
 echo -e "Thank you for using Akshey Saluja's Squid Program"
 exit
 }
-main
 
-#global Variables
-SQUIDWHITELIST='/etc/squid/squid-whitelist.acl'
-IPWHITELIST='/etc/squid/ip_whitelist.acl'
-SQUIDBLACKLIST='/etc/squid/squid-manual-blacklist.acl'
-IPBLACKLIST='/etc/squid/ip_blacklist.acl'
-SQUIDREGEX='/etc/squid/whitelist-regex.acl'
-ACCESSLOG='/var/log/squid/access.log'
+main
