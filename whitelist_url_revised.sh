@@ -2,14 +2,15 @@
 
 : '
 Author Akshey Saluja
+Company SEEPEX Inc.
 '
 
 #global Variables
-SQUIDWHITELIST='/root/testSquid/squid-whitelist.acl'
-IPWHITELIST='/root/testSquid/ip_whitelist.acl'
-SQUIDBLACKLIST='/root/testSquid/squid-manual-blacklist.acl'
-IPBLACKLIST='/root/testSquid/ip_blacklist.acl'
-SQUIDREGEX='/root/testSquid/whitelist-regex.acl'
+SQUIDWHITELIST='/etc/squid/squid-whitelist.acl'
+IPWHITELIST='/etc/squid/ip_whitelist.acl'
+SQUIDBLACKLIST='/etc/squid/squid-manual-blacklist.acl'
+IPBLACKLIST='/etc/squid/ip_blacklist.acl'
+SQUIDREGEX='/etc/squid/whitelist-regex.acl'
 ACCESSLOG='/var/log/squid/access.log'
 
 
@@ -265,7 +266,7 @@ if echo $answer | grep -iq "^n"; then
 fi
 
 done
-#reconfigureSquid
+reconfigureSquid
 echo -e "Thank you for using Akshey Saluja's Squid Program"
 exit
 }
