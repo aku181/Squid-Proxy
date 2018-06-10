@@ -1,2 +1,2 @@
 Make sure the each (IP) octet is 3 characters
-Make sure the url begins with a . i.e .apple.com(good) apple.com(bad)
+Make sure the url begins with a '.' i.e .apple.com(good) apple.com(bad)
