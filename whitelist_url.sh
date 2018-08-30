@@ -129,10 +129,10 @@ Please try again\033[0m'
 fi
 
 #Checking if URL begins with http:// or https:// https?://www. || www.
-if [[ ${1,,} =~ ^https?:// ]] || [[ ${1,,} =~ ^https?://www. ]] || [[ ${1,,} =~ ^www. ]];then
+if [[ ${1,,} =~ ^https?:// ]] || [[ ${1,,} =~ ^https?://www. ]] || [[ ${1,,} =~ ^www. ]] || [[ ${1,,} != .* ]];then
 
   echo -e '\033[1mPlease follow Instructions!!!
-You do not need to enter http:// || https:// || www.\n\033[0m
+You do not need to enter http:// || https:// || www. && make sure it begins with a '.'\n\033[0m
 Please try again\033[0m'
   dispalyOptions
  return
