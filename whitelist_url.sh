@@ -97,7 +97,7 @@ case $1 in
     checkIPInput $answer 4
     ;;
     "5")
-    echo -n "Enter a word to exclude : (Ex. PipeNipples) "
+    echo -n "Enter a word to exclude : (Ex. Microsoft) "
     read answer
     addToRegex $answer
     ;;
