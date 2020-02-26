@@ -4,7 +4,6 @@
 Author Akshey Saluja
 '
 
-
 SQUIDWHITELIST='/etc/squid/squid-whitelist.acl'
 IPWHITELIST='/etc/squid/ip_whitelist.acl'
 SQUIDBLACKLIST='/etc/squid/squid-manual-blacklist.acl'
